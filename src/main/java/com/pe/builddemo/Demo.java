@@ -52,7 +52,7 @@ public class Demo {
                 if (Objects.nonNull(ssn)) {
                     System.out.println("Record is valid for =" + ssn.getEmployeeSsn());
                 } else {
-                    System.out.println("Record is invalid or not found in database=" + ssn.getEmployeeSsn());
+                    System.out.println("Record is invalid or not found in database="+it);
                 }
             });
 
