@@ -32,7 +32,7 @@ public class Demo {
 
 
         SSN record2 = new SSN();
-        record2.setEmployeeSsn("923457404");
+        record2.setEmployeeSsn("923-45-7404");
         record2.setEmployeeSsn_Hash("asdakdadnaidsbaisdbaidb");
 
         record2.setEmployeeSsn_First_Five("92345");
@@ -47,12 +47,12 @@ public class Demo {
 
 
         try (Stream<String> stream = Files.lines(Paths.get(fileName))) {
-            stream.map(it -> it.split(",")[1]).map(it -> it.replaceAll("-", "").replaceAll("\"", "")).forEach(it -> {
+            stream.map(it -> it.split(",")[1]).map(it -> it.replaceAll("\"", "")).forEach(it -> {
                 SSN ssn = compare(it, ssnFromDatabase);
                 if (Objects.nonNull(ssn)) {
-                    System.out.println("Record is valid for ="+ssn.getEmployeeSsn());
+                    System.out.println("Record is valid for =" + ssn.getEmployeeSsn());
                 } else {
-                    System.out.println("Record is invalid or not found in database="+ssn.getEmployeeSsn());
+                    System.out.println("Record is invalid or not found in database=" + ssn.getEmployeeSsn());
                 }
             });
 
@@ -67,14 +67,16 @@ public class Demo {
 
     private static SSN compare(String lookupssn, Set<SSN> ssnFromDatabase) {
         return ssnFromDatabase.stream().filter(ssn ->
-                (ssn.getEmployeeSsn().equals(lookupssn) && !isEmpty(ssn.getEmployeeSsn_Hash()))
-                        &&
-                        ((ssn.getEmployeeSsn_First_Five().equals(lookupssn.substring(0, 5))) && !isEmpty(ssn.getEmployeeSsn_First_Five_Hash()))
-                        &&
-                        (ssn.getEmployeeSsn_Last_Four().equals(lookupssn.substring(lookupssn.length() - 4)) && !isEmpty(ssn.getEmployeeSsn_Last_Four_Hash()))
-                        &&
-                        (ssn.getEmployeeSsn_formated().equals(lookupssn) && !isEmpty(ssn.getEmployeeSsn_formated_Hash()))
-        ).findFirst().orElse(null);
+        {
+            String formated = lookupssn.replaceAll("-", "");
+            return (ssn.getEmployeeSsn().equals(lookupssn) && !isEmpty(ssn.getEmployeeSsn_Hash()))
+                    &&
+                    ((ssn.getEmployeeSsn_First_Five().equals(formated.substring(0, 5))) && !isEmpty(ssn.getEmployeeSsn_First_Five_Hash()))
+                    &&
+                    (ssn.getEmployeeSsn_Last_Four().equals(formated.substring(formated.length() - 4)) && !isEmpty(ssn.getEmployeeSsn_Last_Four_Hash()))
+                    &&
+                    (ssn.getEmployeeSsn_formated().equals(formated) && !isEmpty(ssn.getEmployeeSsn_formated_Hash()));
+        }).findFirst().orElse(null);
 
     }
 }
