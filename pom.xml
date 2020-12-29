@@ -12,7 +12,7 @@
 	<artifactId>builddemo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>builddemo</name>
-	<packaging>war</packaging>
+	<!--<packaging>war</packaging>-->
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -24,7 +24,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-logging</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>4.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.microsoft.azure</groupId>
+			<artifactId>azure-storage</artifactId>
+			<version>8.6.5</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
