@@ -10,6 +10,17 @@ public class SSN {
     private String employeeSsn_formated;
     private String employeeSsn_formated_Hash;
 
+    private String referenceNum;
+
+    public String getReferenceNum() {
+        return referenceNum;
+    }
+
+    public void setReferenceNum(String referenceNum) {
+        this.referenceNum = referenceNum;
+    }
+
+
     public String getEmployeeSsn() {
         return employeeSsn;
     }
